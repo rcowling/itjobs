@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<title>USA IT Jobs</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>    
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />      
+<style>
+body { margin:0; padding:0; }
+#map { position:absolute; top:0; bottom:0; width:100%; }
+#layer-selector { position: absolute; top: 20px; right: 10px; height: 225px; width: 140px; background-color: rgba(0, 0, 0, 0.7); padding: 10px; z-index: 111;} 
+.button {
+  background-color: lightgray;
+  border: none;
+  color: black;
+  width: 130px;
+  height: 30px;    
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 32px;    
+  cursor: pointer; 
+  white-space: nowrap;    
+}    
+.active, .button:hover {
+  background-color: #666;
+  color: darkorange;
+}   
+    
+.geocoder {
+  position: absolute;  
+}    
+.mapboxgl-ctrl-geocoder { min-width:95%; } 
+#search-txt {
+color: white;
+margin-top: 20px;
+margin-bottom: 10px;
+text-align: center; 
+font-size:14px;    
+}    
+</style>
+</head>
+<body>  
+ <div id='layer-selector'>
+     <button class="button" id="ccnaBtn">CCNA</button>
+     <button class="button" id="mcsaBtn">MCSA</button>
+     <button class="button" id="cisspBtn">CISSP</button>
+     <button class="button active" id="itBtn">All IT Jobs</button>   
+     <div id="search-txt">Search by Zip Code</div>
+     <div id='geocoder' class='geocoder'></div>
+ </div> 
+<div id='map'></div>
+  
+<script>
+    
+// Get the container element
+var btnContainer = document.getElementById("layer-selector");
+
+// Get all buttons with class="btn" inside the container
+var btns = btnContainer.getElementsByClassName("button");
+
+// Loop through the buttons and add the active class to the current/clicked button
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function() {
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}
+    
+mapboxgl.accessToken = 'pk.eyJ1IjoicmNvd2xpbmciLCJhIjoiY2lzZ2YwcjZtMDFwdzNvcnQ3bmR3NXFhcCJ9.TI01a_YqNaqKWigFu70x7w';
+var map = new mapboxgl.Map({
+container: 'map', // container id
+style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
+center: [-74.50, 40], // starting position [lng, lat]
+zoom: 9 // starting zoom
+});
+// Variables for low, medium, and high emissions heatmaps
+// numeric stop values correspond to breaks in data values    
+/*var it_style = [
+  'interpolate',
+  ['linear'],
+  ['get', 'final_co_5'],
+  0,
+  'white',
+  300,
+  'orange',
+  575,
+  'red'  
+];*/
+var geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,    
+    zoom: 8,
+    minLength: 5,
+    limit: 5,
+    bbox: [	-125.0011, 24.9493, -66.9326, 49.5904], // replace this with the bbox of the state
+    types: 'postcode',
+    placeholder: "Enter Zip Code."
+}); 
+    
+var it_style = { "property": 'final_co_4',
+                        "type": "interval",
+                              "stops": [
+                                [0, 'white'],
+                                [1, 'green'],
+                                [500, 'orange'],
+                                [1000, 'yellow'], 
+                                [3500, 'brown'],
+                                [8734, 'red'],  
+                               ]
+                        }; 
+    
+var CCNA_style = { "property": 'final_co_5',
+                        "type": "interval",
+                              "stops": [
+                                [0, 'white'],
+                                [1, 'green'],
+                                [100, 'orange'],
+                                [200, 'yellow'], 
+                                [350, 'brown'],
+                                [575, 'red'],  
+                               ]
+                        };
+
+var MCSA_style = { "property": 'final_co_8',
+                        "type": "interval",
+                              "stops": [
+                                [0, 'white'],
+                                [1, 'green'],
+                                [25, 'orange'],
+                                [50, 'yellow'], 
+                                [120, 'brown'],
+                                [219, 'red'],  
+                               ]
+                        };    
+
+var CISSP_style = { "property": 'final_c_11',
+                        "type": "interval",
+                              "stops": [
+                                [0, 'white'],
+                                [1, 'green'],
+                                [250, 'orange'],
+                                [500, 'yellow'], 
+                                [850, 'brown'],
+                                [1371, 'red'],  
+                               ]
+                        };        
+       
+map.on('load', function () {
+    map.addSource('it_zipcodes_4-6bqgzn', {
+        'type': 'vector',
+        'url': 'mapbox://rcowling.3q5yh73y'
+    });
+
+     map.addLayer({
+        'id': 'zipcodes',
+        'type': 'fill',
+        'source': 'it_zipcodes_4-6bqgzn',
+        'source-layer': 'it_zipcodes_4-6bqgzn',
+        'paint': {
+            'fill-color': 'green',
+            'fill-outline-color': 'black',
+            'fill-opacity': .5
+        }
+    }, 'place-city-sm'); // Place polygon under these labels.
+    
+    map.setPaintProperty('zipcodes', 'fill-color', it_style); 
+});   
+
+map.on('click', 'zipcodes', function (e) {
+    var certType = $('.active').attr('id');
+    console.log(certType);
+    if (certType == 'itBtn') {
+        var feature = e.features[0]; //get the properties of the clicked feature
+        console.log(feature);       
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)          
+            .setHTML('There are ' + e.features[0].properties.final_co_4 + ' IT Jobs in ' + e.features[0].properties.USAZipCode)                   
+            .addTo(map); // Add the popup to the map 
+    } else if (certType == 'ccnaBtn') {
+        var feature = e.features[0]; //get the properties of the clicked feature
+        console.log(feature);       
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)          
+            .setHTML('There are ' + e.features[0].properties.final_co_5 + ' CCNA Jobs in ' + e.features[0].properties.USAZipCode)                   
+            .addTo(map); // Add the popup to the map
+    } else if (certType == 'mcsaBtn') {
+        var feature = e.features[0]; //get the properties of the clicked feature
+        console.log(feature);       
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)          
+            .setHTML('There are ' + e.features[0].properties.final_co_8 + ' MCSA Jobs in ' + e.features[0].properties.USAZipCode)                   
+            .addTo(map); // Add the popup to the map
+    } else if (certType == 'cisspBtn') {
+        var feature = e.features[0]; //get the properties of the clicked feature
+        console.log(feature);       
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)          
+            .setHTML('There are ' + e.features[0].properties.final_c_11 + ' CISSP Jobs in ' + e.features[0].properties.USAZipCode)                   
+            .addTo(map); // Add the popup to the map
+    }
+});      
+$( "#itBtn" ).click(function() {
+   map.setPaintProperty('zipcodes', 'fill-color', it_style);
+});  
+    
+$( "#ccnaBtn" ).click(function() {
+   map.setPaintProperty('zipcodes', 'fill-color', CCNA_style);
+    
+});
+    
+$( "#mcsaBtn" ).click(function() {
+   map.setPaintProperty('zipcodes', 'fill-color', MCSA_style);
+});    
+    
+$( "#cisspBtn" ).click(function() {
+   map.setPaintProperty('zipcodes', 'fill-color', CISSP_style);
+});   
+    
+// Add the geocoder control to an existing div    
+document.getElementById('geocoder').appendChild(geocoder.onAdd(map));    
+        
+</script>
+ 
+</body>
+</html>
