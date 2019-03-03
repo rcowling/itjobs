@@ -44,24 +44,24 @@ body { margin:0; padding:0; }
 }    
 .mapboxgl-ctrl-geocoder { min-width:95%; } 
 #search-txt {
-color: white;
-margin-top: 20px;
-margin-bottom: 10px;
-text-align: center; 
-font-size:14px;    
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: center; 
+  font-size:14px;    
 }  
 .form-control {
   margin-right: 10px;
   margin-left: 10px;    
   display: inline-block;
-  width: 20vw; 
+  width: 23vw; 
   height: auto;    
 } 
 .close {
- font-size: 3rem;
+  font-size: 2rem;
+  margin-right: 5px;    
 }
 .modal-body {
-  padding: 0 !important;
   display: block;
   text-align: center; 
   align-items: center;    
@@ -81,25 +81,19 @@ font-size:14px;
  <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog" data-backdrop="false" >
     <div class="modal-dialog" style="position:absolute;bottom:0;margin:0;width:100%;">
-
       <!-- Modal content-->
-      <div class="modal-content">
-    
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          
+      <div class="modal-content">    
+          <button type="button" class="close" data-dismiss="modal">&times;</button>          
         <div class="modal-body">
           <h3>What's the State of IT Cert's in your area?</h3>
           <p>Download the report for your zipcode</p> 
           <input type="text" class="form-control" id="search-box" placeholder="Email address" aria-label="Zip code" aria-describedby="basic-addon2">   
-          <button class="button" id="submitBtn" style="width: 160px; color: white; background-color: dimgray; display: inline-block;">Download the report</button>    
-        </div>
-        
+          <button class="button" id="submitBtn" style="width: 160px; color: white; background-color: dimgray; margin:6px auto;">Download the report</button>  
+        </div>        
       </div>
-
     </div>
   </div>
     
-  
 <script>
     
 // Get the container element
@@ -242,8 +236,7 @@ var CISSP_style = { "property": 'final_c_11',
                                ]
                         };        
        
-map.on('load', function () {   
-    $('#myModal').modal('show')
+map.on('load', function () {     
     map.addSource('it_states-cnvxk5', {
         'type': 'vector',
         'url': 'mapbox://rcowling.5njxowd2'
@@ -370,10 +363,19 @@ $( "#mcsaBtn" ).click(function() {
 $( "#cisspBtn" ).click(function() {
    map.setPaintProperty('states', 'fill-color', CISSP_states_style);    
    map.setPaintProperty('zipcodes', 'fill-color', CISSP_style);
-});   
+}); 
+    
+$( "#submitBtn" ).click(function() {
+  $('#myModal').modal('hide');
+});    
     
 // Add the geocoder control to an existing div    
-document.getElementById('geocoder').appendChild(geocoder.onAdd(map));    
+document.getElementById('geocoder').appendChild(geocoder.onAdd(map)); 
+    
+// On the result of the geocoder open the modal
+geocoder.on('result', function(ev) {
+    $('#myModal').modal('show');
+});    
         
 </script>
  
