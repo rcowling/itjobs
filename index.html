@@ -4,15 +4,21 @@
 <meta charset='utf-8' />
 <title>USA IT Jobs</title>
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">    
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
 <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
-<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />      
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />  
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>    
 <style>
 body { margin:0; padding:0; }
 #map { position:absolute; top:0; bottom:0; width:100%; }
-#layer-selector { position: absolute; top: 20px; right: 10px; height: 225px; width: 140px; background-color: rgba(0, 0, 0, 0.7); padding: 10px; z-index: 111;} 
+#layer-selector { position: absolute; top: 20px; right: 10px; height: 240px; width: 140px; background-color: rgba(0, 0, 0, 0.7); padding: 10px; z-index: 111;} 
+* {
+    box-sizing: content-box !important;
+}  
+.mapboxgl-ctrl-geocoder input[type='text'] { height: auto !important;}    
 .button {
   background-color: lightgray;
   border: none;
@@ -43,6 +49,22 @@ margin-top: 20px;
 margin-bottom: 10px;
 text-align: center; 
 font-size:14px;    
+}  
+.form-control {
+  margin-right: 10px;
+  margin-left: 10px;    
+  display: inline-block;
+  width: 20vw; 
+  height: auto;    
+} 
+.close {
+ font-size: 3rem;
+}
+.modal-body {
+  padding: 0 !important;
+  display: block;
+  text-align: center; 
+  align-items: center;    
 }    
 </style>
 </head>
@@ -56,6 +78,27 @@ font-size:14px;
      <div id='geocoder' class='geocoder'></div>
  </div> 
 <div id='map'></div>
+ <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog" data-backdrop="false" >
+    <div class="modal-dialog" style="position:absolute;bottom:0;margin:0;width:100%;">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+    
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        <div class="modal-body">
+          <h3>What's the State of IT Cert's in your area?</h3>
+          <p>Download the report for your zipcode</p> 
+          <input type="text" class="form-control" id="search-box" placeholder="Email address" aria-label="Zip code" aria-describedby="basic-addon2">   
+          <button class="button" id="submitBtn" style="width: 160px; color: white; background-color: dimgray; display: inline-block;">Download the report</button>    
+        </div>
+        
+      </div>
+
+    </div>
+  </div>
+    
   
 <script>
     
@@ -199,7 +242,8 @@ var CISSP_style = { "property": 'final_c_11',
                                ]
                         };        
        
-map.on('load', function () {    
+map.on('load', function () {   
+    $('#myModal').modal('show')
     map.addSource('it_states-cnvxk5', {
         'type': 'vector',
         'url': 'mapbox://rcowling.5njxowd2'
