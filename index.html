@@ -12,11 +12,11 @@
 <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />  
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>    
 <style>
-body { margin:0; padding:0; }
+body { margin:0; padding:0; overflow: hidden; }
 #map { position:absolute; top:0; bottom:0; width:100%; }
 #layer-selector { position: absolute; top: 20px; right: 10px; height: 240px; width: 140px; background-color: rgba(0, 0, 0, 0.7); padding: 10px; z-index: 111;} 
 * {
-    box-sizing: content-box !important;
+    box-sizing: inherit;
 }  
 .mapboxgl-ctrl-geocoder input[type='text'] { height: auto !important;}    
 .button {
@@ -55,7 +55,8 @@ body { margin:0; padding:0; }
   margin-left: 10px;    
   display: inline-block;
   width: 23vw; 
-  height: auto;    
+  height: auto;  
+  overflow: hidden;    
 } 
 .close {
   font-size: 2rem;
@@ -64,8 +65,13 @@ body { margin:0; padding:0; }
 .modal-body {
   display: block;
   text-align: center; 
-  align-items: center;    
-}    
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;    
+}
+.modal-backdrop {
+  display: none !important;     
+}       
+
 </style>
 </head>
 <body>  
