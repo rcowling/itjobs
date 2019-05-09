@@ -117,10 +117,10 @@ for (var i = 0; i < btns.length; i++) {
   });
 }
     
-mapboxgl.accessToken = 'pk.eyJ1IjoicmNvd2xpbmciLCJhIjoiY2lzZ2YwcjZtMDFwdzNvcnQ3bmR3NXFhcCJ9.TI01a_YqNaqKWigFu70x7w';
+mapboxgl.accessToken = 'pk.eyJ1IjoiY2J0bnVnZ2V0cyIsImEiOiJjanNtOG10M2QxbmxrM3lubWxuaWV0aWxxIn0.CkR5kSH8DzLqSrjDF7dQHg';
 var map = new mapboxgl.Map({
 container: 'map', // container id
-style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
+style: 'mapbox://styles/mapbox/streets-v10', // stylesheet location
 center: [-95.9669, 37.1669], // starting position [lng, lat]
 zoom: 3 // starting zoom
 });
@@ -148,135 +148,130 @@ var geocoder = new MapboxGeocoder({
 }); 
     
 // Styles for the states layer
-var it_states_style = { "property": 'Sheet1__IT',
+var it_states_style = { "property": '190507_s_7',
                         "type": "interval",
                               "stops": [                                
-                                [185, 'green'],
-                                [3000, 'orange'],
-                                [50000, 'yellow'], 
-                                [350000, 'brown'],
-                                [575167, 'red'],  
-                               ]
+                                [0, '#FFFFFF'],
+                                [20000, '#DCE2ED'],
+                                [100000, '#8F9BAB'],
+                                [200000, '#455060'], 
+                                [450000, '#FFBC00'],                   
+                               ]                              
                         }; 
     
-var CCNA_states_style = { "property": 'Sheet1__CC',
+var CCNA_states_style = { "property": '190507_s_2',
                         "type": "interval",
                               "stops": [                                
-                                [10, 'green'],
-                                [3000, 'orange'],
-                                [10000, 'yellow'], 
-                                [15000, 'brown'],
-                                [22661, 'red'],  
+                                [0, '#FFFFFF'],
+                                [1000, '#DCE2ED'],
+                                [6000, '#8F9BAB'],
+                                [15000, '#455060'], 
+                                [35000, '#FFBC00'],                                  
                                ]
                         };
 
-var MCSA_states_style = { "property": 'Sheet1__MC',
+var MCSA_states_style = { "property": '190507_s_8',
                         "type": "interval",
                               "stops": [                                
-                                [6, 'green'],
-                                [500, 'orange'],
-                                [1500, 'yellow'], 
-                                [3500, 'brown'],
-                                [7784, 'red'],  
+                                [0, '#FFFFFF'],
+                                [500, '#DCE2ED'],
+                                [2000, '#8F9BAB'],
+                                [6000, '#455060'], 
+                                [12000, '#FFBC00'],                                  
                                ]
                         };    
 
-var CISSP_states_style = { "property": 'Sheet1__CI',
+var CISSP_states_style = { "property": '190507_s_5',
                         "type": "interval",
                               "stops": [
-                                [0, 'white'],
-                                [5, 'green'],
-                                [5000, 'orange'],
-                                [20000, 'yellow'], 
-                                [30000, 'brown'],
-                                [46635, 'red'],  
+                                [0, '#FFFFFF'],
+                                [2000, '#DCE2ED'],
+                                [10000, '#8F9BAB'],
+                                [40000, '#455060'], 
+                                [80000, '#FFBC00'],                                  
                                ]
                         };        
     
 // Styles for the zipcodes layer    
-var it_style = { "property": 'final_co_4',
+var it_style = { "property": 'c190507_11',
                         "type": "interval",
                               "stops": [
-                                [0, 'white'],
-                                [1, 'green'],
-                                [500, 'orange'],
-                                [1000, 'yellow'], 
-                                [3500, 'brown'],
-                                [8734, 'red'],  
+                                [0, '#FFFFFF'],
+                                [1000, '#DCE2ED'],
+                                [2000, '#8F9BAB'],
+                                [3500, '#455060'], 
+                                [4500, '#FFBC00'],                                  
                                ]
                         }; 
     
-var CCNA_style = { "property": 'final_co_5',
+var CCNA_style = { "property": 'c190507__6',
                         "type": "interval",
                               "stops": [
-                                [0, 'white'],
-                                [1, 'green'],
-                                [100, 'orange'],
-                                [200, 'yellow'], 
-                                [350, 'brown'],
-                                [575, 'red'],  
+                                [0, '#FFFFFF'],
+                                [150, '#DCE2ED'],
+                                [350, '#8F9BAB'],
+                                [550, '#455060'], 
+                                [750, '#ffbc00'],                                
                                ]
                         };
 
-var MCSA_style = { "property": 'final_co_8',
+var MCSA_style = { "property": 'c190507_12',
                         "type": "interval",
                               "stops": [
-                                [0, 'white'],
-                                [1, 'green'],
-                                [25, 'orange'],
-                                [50, 'yellow'], 
-                                [120, 'brown'],
-                                [219, 'red'],  
+                                [0, '#FFFFFF'],
+                                [25, '#DCE2ED'],
+                                [50, '#8F9BAB'],
+                                [100, '#455060'], 
+                                [200, '#FFBC00'],                                 
                                ]
                         };    
 
-var CISSP_style = { "property": 'final_c_11',
+var CISSP_style = { "property": 'c190507__9',
                         "type": "interval",
                               "stops": [
-                                [0, 'white'],
-                                [1, 'green'],
-                                [250, 'orange'],
-                                [500, 'yellow'], 
-                                [850, 'brown'],
-                                [1371, 'red'],  
+                                [0, '#FFFFFF'],
+                                [200, '#DCE2ED'],
+                                [400, '#8F9BAB'],
+                                [800, '#455060'], 
+                                [1500, '#FFBC00'], 
                                ]
                         };        
        
 map.on('load', function () {     
-    map.addSource('it_states-cnvxk5', {
+    map.addSource('it_states_joined-96026o', {
         'type': 'vector',
-        'url': 'mapbox://rcowling.5njxowd2'
+        'url': 'mapbox://cbtnuggets.aqlr908f'
     });
 
      map.addLayer({
         'id': 'states',
         'type': 'fill',
-        'source': 'it_states-cnvxk5',
+        'source': 'it_states_joined-96026o',
          'maxzoom': 5,
-        'source-layer': 'it_states-cnvxk5',
+        'source-layer': 'it_states_joined-96026o',
         'paint': {
             'fill-color': 'green',
             'fill-outline-color': 'black',
-            'fill-opacity': .5
+            'fill-opacity': 1
         }
     }, 'place-city-sm'); // Place polygon under these labels.
     
     map.setPaintProperty('states', 'fill-color', it_states_style);
     
-    map.addSource('it_zipcodes_4-6bqgzn', {
+    map.addSource('it_zips_joined_3-76h6p3', {
         'type': 'vector',
-        'url': 'mapbox://rcowling.3q5yh73y'
+        'url': 'mapbox://cbtnuggets.8wpefale'
     });
 
      map.addLayer({
         'id': 'zipcodes',
         'type': 'fill',
-        'source': 'it_zipcodes_4-6bqgzn',
-        'source-layer': 'it_zipcodes_4-6bqgzn',
+        'source': 'it_zips_joined_3-76h6p3',
+        'source-layer': 'it_zips_joined_3-76h6p3',
         'paint': {
             'fill-color': 'green',
             'fill-outline-color': 'black',
-            'fill-opacity': .5
+            'fill-opacity': 1
         }
     }, 'place-city-sm'); // Place polygon under these labels.
     
@@ -291,28 +286,28 @@ map.on('click', 'zipcodes', function (e) {
         console.log(feature);       
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)          
-            .setHTML('There are ' + e.features[0].properties.final_co_4 + ' IT Jobs in ' + e.features[0].properties.USAZipCode)                   
+            .setHTML('There are ' + e.features[0].properties.c190507_11 + ' IT Jobs in ' + e.features[0].properties.USAZipCode)                   
             .addTo(map); // Add the popup to the map 
     } else if (certType == 'ccnaBtn') {
         var feature = e.features[0]; //get the properties of the clicked feature
         console.log(feature);       
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)          
-            .setHTML('There are ' + e.features[0].properties.final_co_5 + ' CCNA Jobs in ' + e.features[0].properties.USAZipCode)                   
+            .setHTML('There are ' + e.features[0].properties.c190507__6 + ' CCNA Jobs in ' + e.features[0].properties.USAZipCode)                   
             .addTo(map); // Add the popup to the map
     } else if (certType == 'mcsaBtn') {
         var feature = e.features[0]; //get the properties of the clicked feature
         console.log(feature);       
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)          
-            .setHTML('There are ' + e.features[0].properties.final_co_8 + ' MCSA Jobs in ' + e.features[0].properties.USAZipCode)                   
+            .setHTML('There are ' + e.features[0].properties.c190507_12 + ' MCSA Jobs in ' + e.features[0].properties.USAZipCode)                   
             .addTo(map); // Add the popup to the map
     } else if (certType == 'cisspBtn') {
         var feature = e.features[0]; //get the properties of the clicked feature
         console.log(feature);       
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)          
-            .setHTML('There are ' + e.features[0].properties.final_c_11 + ' CISSP Jobs in ' + e.features[0].properties.USAZipCode)                   
+            .setHTML('There are ' + e.features[0].properties.c190507__9 + ' CISSP Jobs in ' + e.features[0].properties.USAZipCode)                   
             .addTo(map); // Add the popup to the map
     }
 });  
@@ -325,28 +320,28 @@ map.on('click', 'states', function (e) {
         console.log(feature);       
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)          
-            .setHTML('There are ' + e.features[0].properties.Sheet1__IT + ' IT Jobs in ' + e.features[0].properties.cb_2017__4)                   
+            .setHTML('There are ' + e.features[0].properties['190507_s_7'] + ' IT Jobs in ' + e.features[0].properties.cb_2017__4)                   
             .addTo(map); // Add the popup to the map 
     } else if (certType == 'ccnaBtn') {
         var feature = e.features[0]; //get the properties of the clicked feature
         console.log(feature);       
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)          
-            .setHTML('There are ' + e.features[0].properties.Sheet1__CC + ' CCNA Jobs in ' + e.features[0].properties.cb_2017__4)                   
+            .setHTML('There are ' + e.features[0].properties['190507_s_2'] + ' CCNA Jobs in ' + e.features[0].properties.cb_2017__4)                   
             .addTo(map); // Add the popup to the map
     } else if (certType == 'mcsaBtn') {
         var feature = e.features[0]; //get the properties of the clicked feature
         console.log(feature);       
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)          
-            .setHTML('There are ' + e.features[0].properties.Sheet1__MC + ' MCSA Jobs in ' + e.features[0].properties.cb_2017__4)                   
+            .setHTML('There are ' + e.features[0].properties['190507_s_8'] + ' MCSA Jobs in ' + e.features[0].properties.cb_2017__4)                   
             .addTo(map); // Add the popup to the map
     } else if (certType == 'cisspBtn') {
         var feature = e.features[0]; //get the properties of the clicked feature
         console.log(feature);       
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)          
-            .setHTML('There are ' + e.features[0].properties.Sheet1__CI + ' CISSP Jobs in ' + e.features[0].properties.cb_2017__4)                   
+            .setHTML('There are ' + e.features[0].properties['190507_s_5'] + ' CISSP Jobs in ' + e.features[0].properties.cb_2017__4)                   
             .addTo(map); // Add the popup to the map
     }
 });      
