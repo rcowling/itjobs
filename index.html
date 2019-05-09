@@ -120,7 +120,7 @@ for (var i = 0; i < btns.length; i++) {
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2J0bnVnZ2V0cyIsImEiOiJjanNtOG10M2QxbmxrM3lubWxuaWV0aWxxIn0.CkR5kSH8DzLqSrjDF7dQHg';
 var map = new mapboxgl.Map({
 container: 'map', // container id
-style: 'mapbox://styles/mapbox/streets-v10', // stylesheet location
+style: 'mapbox://styles/cbtnuggets/cjvh005cv00ei1cqqgp5pzgmz', // stylesheet location
 center: [-95.9669, 37.1669], // starting position [lng, lat]
 zoom: 3 // starting zoom
 });
@@ -254,7 +254,7 @@ map.on('load', function () {
             'fill-outline-color': 'black',
             'fill-opacity': 1
         }
-    }, 'place-city-sm'); // Place polygon under these labels.
+    }, 'state-label'); // Place polygon under these labels.
     
     map.setPaintProperty('states', 'fill-color', it_states_style);
     
@@ -273,7 +273,7 @@ map.on('load', function () {
             'fill-outline-color': 'black',
             'fill-opacity': 1
         }
-    }, 'place-city-sm'); // Place polygon under these labels.
+    }, 'settlement-label'); // Place polygon under these labels.
     
     map.setPaintProperty('zipcodes', 'fill-color', it_style);     
 });   
