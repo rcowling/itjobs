@@ -148,7 +148,7 @@ var geocoder = new MapboxGeocoder({
 }); 
     
 // Styles for the states layer
-var it_states_style = { "property": '190507_s_7',
+var it_states_style = { "property": 'TOTAL',
                         "type": "interval",
                               "stops": [                                
                                 [0, '#FFFFFF'],
@@ -159,7 +159,7 @@ var it_states_style = { "property": '190507_s_7',
                                ]                              
                         }; 
     
-var CCNA_states_style = { "property": '190507_s_2',
+var CCNA_states_style = { "property": 'CCNA',
                         "type": "interval",
                               "stops": [                                
                                 [0, '#FFFFFF'],
@@ -170,7 +170,7 @@ var CCNA_states_style = { "property": '190507_s_2',
                                ]
                         };
 
-var MCSA_states_style = { "property": '190507_s_8',
+var MCSA_states_style = { "property": 'MCSA',
                         "type": "interval",
                               "stops": [                                
                                 [0, '#FFFFFF'],
@@ -181,7 +181,7 @@ var MCSA_states_style = { "property": '190507_s_8',
                                ]
                         };    
 
-var CISSP_states_style = { "property": '190507_s_5',
+var CISSP_states_style = { "property": 'CISSP',
                         "type": "interval",
                               "stops": [
                                 [0, '#FFFFFF'],
@@ -193,7 +193,7 @@ var CISSP_states_style = { "property": '190507_s_5',
                         };        
     
 // Styles for the zipcodes layer    
-var it_style = { "property": 'c190507_11',
+var it_style = { "property": 'TOTAL',
                         "type": "interval",
                               "stops": [
                                 [0, '#FFFFFF'],
@@ -205,7 +205,7 @@ var it_style = { "property": 'c190507_11',
                                ]
                         }; 
     
-var CCNA_style = { "property": 'c190507__6',
+var CCNA_style = { "property": 'CCNA',
                         "type": "interval",
                               "stops": [
                                 [0, '#FFFFFF'],
@@ -216,7 +216,7 @@ var CCNA_style = { "property": 'c190507__6',
                                ]
                         };
 
-var MCSA_style = { "property": 'c190507_12',
+var MCSA_style = { "property": 'MCSA',
                         "type": "interval",
                               "stops": [
                                 [0, '#FFFFFF'],
@@ -227,7 +227,7 @@ var MCSA_style = { "property": 'c190507_12',
                                ]
                         };    
 
-var CISSP_style = { "property": 'c190507__9',
+var CISSP_style = { "property": 'CISSP',
                         "type": "interval",
                               "stops": [
                                 [0, '#FFFFFF'],
@@ -239,17 +239,17 @@ var CISSP_style = { "property": 'c190507__9',
                         };        
        
 map.on('load', function () {     
-    map.addSource('it_states_joined-96026o', {
+    map.addSource('itstates', {
         'type': 'vector',
-        'url': 'mapbox://cbtnuggets.aqlr908f'
+        'url': 'mapbox://cbtnuggets.itstates-tiles'
     });
 
      map.addLayer({
         'id': 'states',
         'type': 'fill',
-        'source': 'it_states_joined-96026o',
-         'maxzoom': 5,
-        'source-layer': 'it_states_joined-96026o',
+        'source': 'itstates',
+         'maxzoom': 6,
+        'source-layer': 'itstates',
         'paint': {
             'fill-color': 'green',
             'fill-outline-color': 'black',
@@ -259,16 +259,16 @@ map.on('load', function () {
     
     map.setPaintProperty('states', 'fill-color', it_states_style);
     
-    map.addSource('it_zips_joined_3-76h6p3', {
+    map.addSource('itzips1', {
         'type': 'vector',
-        'url': 'mapbox://cbtnuggets.8wpefale'
+        'url': 'mapbox://cbtnuggets.itzips1-tiles'
     });
 
      map.addLayer({
         'id': 'zipcodes',
         'type': 'fill',
-        'source': 'it_zips_joined_3-76h6p3',
-        'source-layer': 'it_zips_joined_3-76h6p3',
+        'source': 'itzips1',
+        'source-layer': 'itzips1',
         'paint': {
             'fill-color': 'green',
             'fill-outline-color': 'black',
@@ -287,28 +287,28 @@ map.on('click', 'zipcodes', function (e) {
         console.log(feature);       
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)          
-            .setHTML('There are ' + e.features[0].properties.c190507_11 + ' IT Jobs in ' + e.features[0].properties.USAZipCode)                   
+            .setHTML('There are ' + e.features[0].properties.TOTAL + ' IT Jobs in ' + e.features[0].properties.USAZipCode)                   
             .addTo(map); // Add the popup to the map 
     } else if (certType == 'ccnaBtn') {
         var feature = e.features[0]; //get the properties of the clicked feature
         console.log(feature);       
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)          
-            .setHTML('There are ' + e.features[0].properties.c190507__6 + ' CCNA Jobs in ' + e.features[0].properties.USAZipCode)                   
+            .setHTML('There are ' + e.features[0].properties.CCNA + ' CCNA Jobs in ' + e.features[0].properties.USAZipCode)                   
             .addTo(map); // Add the popup to the map
     } else if (certType == 'mcsaBtn') {
         var feature = e.features[0]; //get the properties of the clicked feature
         console.log(feature);       
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)          
-            .setHTML('There are ' + e.features[0].properties.c190507_12 + ' MCSA Jobs in ' + e.features[0].properties.USAZipCode)                   
+            .setHTML('There are ' + e.features[0].properties.MCSA + ' MCSA Jobs in ' + e.features[0].properties.USAZipCode)                   
             .addTo(map); // Add the popup to the map
     } else if (certType == 'cisspBtn') {
         var feature = e.features[0]; //get the properties of the clicked feature
         console.log(feature);       
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)          
-            .setHTML('There are ' + e.features[0].properties.c190507__9 + ' CISSP Jobs in ' + e.features[0].properties.USAZipCode)                   
+            .setHTML('There are ' + e.features[0].properties.CISSP + ' CISSP Jobs in ' + e.features[0].properties.USAZipCode)                   
             .addTo(map); // Add the popup to the map
     }
 });  
@@ -321,28 +321,28 @@ map.on('click', 'states', function (e) {
         console.log(feature);       
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)          
-            .setHTML('There are ' + e.features[0].properties['190507_s_7'] + ' IT Jobs in ' + e.features[0].properties.cb_2017__4)                   
+            .setHTML('There are ' + e.features[0].properties.TOTAL + ' IT Jobs in ' + e.features[0].properties.NAME)                   
             .addTo(map); // Add the popup to the map 
     } else if (certType == 'ccnaBtn') {
         var feature = e.features[0]; //get the properties of the clicked feature
         console.log(feature);       
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)          
-            .setHTML('There are ' + e.features[0].properties['190507_s_2'] + ' CCNA Jobs in ' + e.features[0].properties.cb_2017__4)                   
+            .setHTML('There are ' + e.features[0].properties.CCNA + ' CCNA Jobs in ' + e.features[0].properties.NAME)                   
             .addTo(map); // Add the popup to the map
     } else if (certType == 'mcsaBtn') {
         var feature = e.features[0]; //get the properties of the clicked feature
         console.log(feature);       
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)          
-            .setHTML('There are ' + e.features[0].properties['190507_s_8'] + ' MCSA Jobs in ' + e.features[0].properties.cb_2017__4)                   
+            .setHTML('There are ' + e.features[0].properties.MCSA + ' MCSA Jobs in ' + e.features[0].properties.NAME)                   
             .addTo(map); // Add the popup to the map
     } else if (certType == 'cisspBtn') {
         var feature = e.features[0]; //get the properties of the clicked feature
         console.log(feature);       
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)          
-            .setHTML('There are ' + e.features[0].properties['190507_s_5'] + ' CISSP Jobs in ' + e.features[0].properties.cb_2017__4)                   
+            .setHTML('There are ' + e.features[0].properties.CISSP + ' CISSP Jobs in ' + e.features[0].properties.NAME)                   
             .addTo(map); // Add the popup to the map
     }
 });      
